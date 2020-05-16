@@ -14,6 +14,7 @@
     });
   });
 })();
+console.log('17http.js文件加载');
 // 请求拦截
 window.axios.interceptors.request.use(config => {
   // showFullScreenLoading();
@@ -77,7 +78,7 @@ window.axios.interceptors.response.use(res => {
 
 window.axios.defaults.timeout = 300000; // 请求超时5fen
 
-function postJsonRequest(url, params) {
+window.postJsonRequest = function(url, params) {
   return window.axios({
     method: 'post',
     url: url,
@@ -86,9 +87,9 @@ function postJsonRequest(url, params) {
       'Content-Type': 'application/json'
     }
   });
-}
+};
 
-function postRequest(url, params) {
+window.postRequest = function(url, params) {
   return window.axios({
     method: 'post',
     url: url,
@@ -104,9 +105,9 @@ function postRequest(url, params) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   });
-}
+};
 
-function postHTMLRequest(url, params) {
+window.postHTMLRequest = function(url, params) {
   return window.axios({
     method: 'post',
     dataType: 'html',
@@ -123,12 +124,12 @@ function postHTMLRequest(url, params) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   });
-}
+};
 
-function getRequest(url, data = {}) {
+window.getRequest = function(url, data = {}) {
   return window.axios({
     method: 'get',
     params: data,
     url: url
   });
-}
+};

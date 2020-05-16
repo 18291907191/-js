@@ -43,8 +43,8 @@ const HomePage = {
     oLoadingFailDom.style = 'display:block';
   },
   // 获取文章列表
-  getArticleList() {
-    HOME.getArticleList(this.getArticleParams).then(res => {
+  getArticleData() {
+    window.API.getArticleList(this.getArticleParams).then(res => {
       this.oArticleDom.innerHTML = '';
       const totalPage = Number(res.total);
       const size = Number(res.size);
@@ -59,7 +59,7 @@ const HomePage = {
   // 初始化
   init() {
     this.oArticleDom = document.querySelector('.article-wrap ul');
-    this.getArticleList();
+    this.getArticleData();
   },
   // 下一页
   handleNextPage() {
