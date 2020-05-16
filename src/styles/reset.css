@@ -1,0 +1,83 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+  vertical-align: baseline;
+  color: #333333;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+html, body {
+  height: 100%;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a {
+  text-decoration: none;
+}
+
+/* loading 样式 */
+.loading-template {
+  width: 100%;
+  text-align: center;
+}
+.dotting {
+  display: inline-block; min-width: 2px; min-height: 2px;
+  box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor; /* for IE9+, ..., 3个点 */
+  animation: dot 3s infinite step-start both; /* for IE10+, ... */
+  *zoom: expression(this.innerHTML = '...'); /*  for IE7. 若无需兼容IE7, 此行删除 */
+}
+.dotting:before { content: '...'; } /* for IE8. 若无需兼容IE8, 此行以及下一行删除*/
+.dotting::before { content: ''; } /* for IE9+ 覆盖 IE8 */
+:root .dotting { margin-right: 8px; } /* for IE9+,FF,CH,OP,SF 占据空间*/
+
+@keyframes dot {
+  25% { box-shadow: none; }                                  /* 0个点 */
+  50% { box-shadow: 2px 0 currentColor; }                    /* 1个点 */
+  75% { box-shadow: 2px 0 currentColor, 6px 0 currentColor;  /* 2个点 */ }
+}
+
+.loading-fail {
+  display: none;
+  width: 100%;
+  text-align: center;
+  color: red;
+}
