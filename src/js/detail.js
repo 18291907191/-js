@@ -2,7 +2,7 @@ const Detail = {
   articleId: null,
   getArticleDetail () {
     const id = this.articleId;
-    DETAIL.getArticleDetail({ id }).then(res => {
+    window.API.getArticleDetail({ id }).then(res => {
       this.articleDetailRender(res);
     }, () => {
       window.globalMessage.error('查询文章详情失败');
@@ -59,3 +59,8 @@ const Detail = {
   }
 };
 Detail.init();
+
+require('../styles/reset.css');
+require('../styles/header.css');
+require('../styles/detail.css');
+require('../styles/iconfont.css');

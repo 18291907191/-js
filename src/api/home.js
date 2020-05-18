@@ -8,7 +8,7 @@ const domain = 'http://www.bgwhite.cn/api';
 window.API = {
   // 获取文章列表
   getArticleList(params = {}) {
-    return window.getRequest(`${domain}/article/api/v1/article_list`, params);
+    return getRequest(`${domain}/article/api/v1/article_list`, params);
   },
   // 获取文章详情
   getArticleDetail(params = {}) {

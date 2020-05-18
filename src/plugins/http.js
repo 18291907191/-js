@@ -14,6 +14,37 @@
     });
   });
 })();
+
+// 请求时loading配置
+var loading;
+
+function startLoading() {
+  // loading = Vue.prototype.$loading({
+  //   lock: true,
+  //   text: 'Loading...',
+  //   background: 'rgba(0, 0, 0, 0.5)',
+  //   target: document.querySelector('.loading-area') // 设置加载动画区域
+  // });
+}
+function endLoading() {
+  loading.close();
+}
+var needLoadingRequestCount = 0;
+
+function showFullScreenLoading() {
+  if (needLoadingRequestCount === 0) {
+    startLoading();
+  }
+  needLoadingRequestCount++;
+}
+
+function tryHideFullScreenLoading() {
+  if (needLoadingRequestCount <= 0) return;
+  needLoadingRequestCount--;
+  if (needLoadingRequestCount === 0) {
+    endLoading();
+  }
+}
 console.log('17http.js文件加载');
 // 请求拦截
 window.axios.interceptors.request.use(config => {

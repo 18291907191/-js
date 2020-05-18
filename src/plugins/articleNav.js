@@ -3,6 +3,9 @@ window.onload = function() {
   oArticleNav.className = 'article-nav';
   oArticleNav.innerHTML = '<h1>文章导航</h1>';
   var oMd = document.querySelector('.md');
+  if (!oMd.childNodes.length) {
+    return;
+  }
   for (var i = 0; i < oMd.childNodes.length; i++) {
     if (oMd.childNodes[i].tagName === 'H2') {
       var oA = document.createElement('a');

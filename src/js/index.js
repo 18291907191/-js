@@ -68,12 +68,12 @@ const HomePage = {
       return;
     }
     this.getArticleParams.page += 1;
-    this.getArticleList();
+    this.getArticleData();
   },
   // 首页
   handleIndexPage() {
     this.getArticleParams.page = 1;
-    this.getArticleList();
+    this.getArticleData();
   },
   // 上一页
   handlePreviousPage() {
@@ -81,7 +81,13 @@ const HomePage = {
       return;
     }
     this.getArticleParams.page -= 1;
-    this.getArticleList();
+    this.getArticleData();
   }
 };
+window.HomePage = HomePage;
 HomePage.init();
+
+require('../styles/reset.css');
+require('../styles/header.css');
+require('../styles/index.css');
+require('../styles/iconfont.css');

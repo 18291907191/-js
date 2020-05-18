@@ -6,7 +6,7 @@
 const domain = 'http://www.bgwhite.cn/api';
 // const domain = 'http://127.0.0.1:3002';
 
-const DETAIL = {
+window.API = {
 
   // 获取文章列表
   getArticleList(params = {}) {
