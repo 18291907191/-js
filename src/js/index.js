@@ -50,6 +50,7 @@ const HomePage = {
       const size = Number(res.size);
       this.totalPage = totalPage % size === 0 ? (totalPage / size) : (Math.floor(totalPage / size) + 1);
       this.articleRender(res.articleData);
+      scrollTo(0, 0); // 回到顶部
     }, () => {
       window.globalMessage.error('查询文章失败');
       this.closeLoading();

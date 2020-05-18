@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // dist打包文
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // css样式抽离
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css文件
+const Webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -39,8 +40,18 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    // 设置服务器访问的基本目录
+    contentBase: path.resolve(__dirname, 'bgwhite-js'),
+    // 服务器ip地址，localhost
+    host: 'localhost',
+    port: 8090,
+    open: true, // 自动打开浏览器
+    hot: true // 热更新
+  },
   plugins: [
     new CleanWebpackPlugin(),
+    new Webpack.HotModuleReplacementPlugin(), // 热更新
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.html',
@@ -74,7 +85,7 @@ module.exports = {
         }
       ]
     }),
-    new OptimizeCSSAssetsPlugin ({
+    new OptimizeCSSAssetsPlugin({
       // 默认是全部的CSS都压缩，该字段可以指定某些要处理的文件
       assetNameRegExp: /\.(sa|sc|le|c)ss$/g,
       // 指定一个优化css的处理器，默认cssnano
