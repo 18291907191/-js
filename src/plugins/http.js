@@ -72,14 +72,14 @@ window.axios.interceptors.response.use(res => {
     case 401:
       window.globalMessage.error(res.data.message);
       Router.push({ path: '/login' });
-      Cookies.remove('adminToken');
+      // Cookies.remove('adminToken');
       return Promise.reject(res.data.message);
     case 201:
       window.globalMessage.error(res.data.message);
       return res.data.result;
     case 403:
       window.globalMessage.error(res.data.message);
-      Cookies.remove('adminToken');
+      // Cookies.remove('adminToken');
       Router.push({ pathname: '/login' });
       return Promise.reject(res.data);
     case 500:

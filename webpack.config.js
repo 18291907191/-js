@@ -9,8 +9,9 @@ const Webpack = require('webpack');
 module.exports = {
   mode: 'development',
   entry: {
-    index: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/home.js', './src/js/index.js'],
-    detail: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/detail.js', './src/js/detail.js', './src/plugins/articleNav.js']
+    index: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/home.js', './src/js/index.js', './src/plugins/animation.js'],
+    detail: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/detail.js', './src/js/detail.js', './src/plugins/articleNav.js'],
+    about: ['./src/js/about.js']
   },
   output: {
     path: path.resolve(__dirname, 'bgwhite-js'),
@@ -42,7 +43,7 @@ module.exports = {
   },
   devServer: {
     // 设置服务器访问的基本目录
-    contentBase: path.resolve(__dirname, 'bgwhite-js'),
+    // contentBase: path.resolve(__dirname, 'bgwhite-js'),
     // 服务器ip地址，localhost
     host: 'localhost',
     port: 8090,
@@ -69,6 +70,17 @@ module.exports = {
       hash: true,
       inject: 'body',
       chunks: ['detail'],
+      minify: {
+        removeComments: true,
+        removeAttributeQuotes: true
+      }
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'about.html',
+      template: 'src/about.html',
+      hash: true,
+      inject: 'body',
+      chunks: ['about'],
       minify: {
         removeComments: true,
         removeAttributeQuotes: true

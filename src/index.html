@@ -36,7 +36,7 @@
       <!--S 文章列表 -->
         <div class="article">
           <div class="swiper">
-            Swiper Box
+            <canvas id="canvas">您的浏览器不支持cnavas绘图，请您更换浏览器!</canvas>
           </div> 
           <h3 class="hd">最新发布</h3>
           <div class="article-wrap">
@@ -63,19 +63,25 @@
             <div class="aslide-model">
               <h3 class="hd"><span><i class="iconfont">&#xe611;&nbsp;&nbsp;</i>网站公告</span></h3>
               <ul class="aslide-model-cont">
-                这块得交购房款里的水就付款李师傅发发第三方时代峰峻方法水电费快递费地方都是小从v南昌的九分裤金大福            
+                狗尾草的前端博客在经历vue+nuxt和react+next后，正进行第三版原生开发重构中。           
               </ul>
             </div><!--E 网站公告 --> 
-          <!--S 最近文章 -->
+          <!--S qq交谈 -->
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1748910489&site=qq&menu=yes">
+              <img border="0" src="http://wpa.qq.com/pa?p=2:1748910489:41" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+            </a><!--E qq交谈 -->
+          <!--S 搜索条 -->
+            <div class="search-bar"><input id="article_search" type="text" placeholder="搜索"><span onclick="HomePage.handleSearch()" class="btn-search">找找看</span></div><!--E 搜索条 -->
+          <!--S 随笔分类 -->
+            <div class="aslide-recent-articles">
+              <h3 class="hd"><span><i class="iconfont">&#xe610;&nbsp;&nbsp;</i>随笔分类</span></h3>
+              <ul class="recent-articles-cont" id="article_tag"></ul>
+            </div><!--E 随笔文章 -->
+          <!--S 推荐文章 -->
             <div class="aslide-recent-articles">
               <h3 class="hd"><span><i class="iconfont">&#xe610;&nbsp;&nbsp;</i>推荐文章</span></h3>
-              <ul class="recent-articles-cont">
-                <li><a href="#">Next+React搭建SSR博客系统</a></li>
-                <li><a href="#">Nuxt+Vue搭建SSR博客系统</a></li>
-                <li><a href="#">Linux服务器搭建</a></li>
-                <li><a href="#">小程序引入多个echarts图标</a></li>
-              </ul>
-            </div><!--E 最近文章 -->
+              <ul class="recent-articles-cont" id="article_good"></ul>
+            </div><!--E 推荐文章 -->
         </div><!--E 侧边栏 --> 
     </div><!--E 内容 -->
     <!--S 版权 -->
@@ -84,5 +90,6 @@
       </footer><!--E 版权 -->
   <script type='text/javascript' src="./static/axios.min.js"></script>
   <script type='text/javascript' async src='http://static.bgwhite.cn/react-website/handleLove.js'></script>
+  <embed src="//music.163.com/style/swf/widget.swf?sid=4894393321&type=0&auto=1&width=0&height=0" hidden="true" autoplay  autostart="true" allowNetworking="all" />
 </body>
 </html>
