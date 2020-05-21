@@ -2,18 +2,15 @@
   "name": "ls",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --online --progress"
+    "dev": "webpack-dev-server --online --progress --config build/webpack.dev.js",
+    "start": "webpack-dev-server --online --progress --config ./build/webpack.test.js",
+    "build": "webpack --config build/webpack.prod.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^9.8.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.1.0",
-    "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.1",
     "css-loader": "^3.5.3",
@@ -26,7 +23,10 @@
     "postcss-loader": "^3.0.0",
     "standard": "^14.3.4",
     "style-loader": "^1.2.1",
+    "uglifyjs-webpack-plugin": "^1.3.0",
     "url-loader": "^4.1.0",
-    "webpack": "^4.43.0"
-  }
+    "webpack": "^4.43.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {}
 }

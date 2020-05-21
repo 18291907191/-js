@@ -1,15 +1,31 @@
 const Detail = {
   articleId: null,
-  getArticleDetail () {
-    const id = this.articleId;
-    window.API.getArticleDetail({ id }).then(res => {
-      this.articleDetailRender(res);
-    }, () => {
-      window.globalMessage.error('查询文章详情失败');
+  // 查询文章详情
+  getArticleDetail() {
+    return new Promise((resolve, reject) => {
+      const id = this.articleId;
+      window.API.getArticleDetail({ id }).then(res => {
+        this.renderArticleDetail(res);
+        resolve(res);
+      }, err => {
+        window.globalMessage.error('查询文章详情失败');
+        reject(err);
+      });
+    });
+  },
+  // 增加文章阅读量
+  setArticleReaderNum() {
+    return new Promise((resolve, reject) => {
+      const id = this.articleId;
+      window.API.setArticleReaderNum({ id }).then(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
     });
   },
   // 详情渲染
-  articleDetailRender(article) {
+  renderArticleDetail(article) {
     const oArticleTitle = document.querySelector('.article-title');
     const oArticleDom = document.querySelector('.md');
     const oArticleCreateTime = document.querySelector('.article-create-time');
@@ -21,12 +37,17 @@ const Detail = {
     oArticleReadNum.innerHTML = article.reader_number;
     oArticleGoodNum.innerHTML = article.good_number;
   },
-  init() {
+  // 初始化
+  async init() {
     this.getRouterParams();
     this.markedInit();
-    this.getArticleDetail();
-    this.appendScript();
+    await Promise.race([this.setArticleReaderNum(), this.getArticleDetail()]);
+    this.appendScript('https://api.4gml.com/NeteaseMusic?type=bq'); // 网易云热评
+    this.appendScript('http://static.bgwhite.cn/react-website/handleLove.js'); // 背景点击特效
+    this.appendScript('http://static.bshare.cn/b/buttonLite.js#uuid=<您的uuid>&style=-1');
+    this.appendScript('http://static.bshare.cn/b/addons/bsharePop.js');
   },
+  // 获取路由参数
   getRouterParams() {
     const routerParams = window.location.search.split('=');
     this.articleId = routerParams[1];
@@ -48,18 +69,19 @@ const Detail = {
       xhtml: false
     });
   },
-  // 追加评论
-  appendScript() {
-    const wyyrp = document.createElement('script');
-    wyyrp.type = 'text/javascript';
-    wyyrp.src = 'https://api.4gml.com/NeteaseMusic?type=bq';
-    wyyrp.async = true;
-    wyyrp.defer = true;
-    document.body.appendChild(wyyrp);
+  // 装饰插件
+  appendScript(url) {
+    const scriptEle = document.createElement('script');
+    scriptEle.type = 'text/javascript';
+    scriptEle.src = url;
+    scriptEle.charset = 'utf-8';
+    scriptEle.async = true;
+    document.body.appendChild(scriptEle);
   }
 };
 Detail.init();
 
+// css样式
 require('../styles/reset.css');
 require('../styles/header.css');
 require('../styles/detail.css');

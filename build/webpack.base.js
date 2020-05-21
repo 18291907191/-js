@@ -7,11 +7,19 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); /
 const Webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
   entry: {
     index: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/home.js', './src/js/index.js', './src/plugins/animation.js'],
     detail: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/detail.js', './src/js/detail.js', './src/plugins/articleNav.js'],
     about: ['./src/js/about.js']
+  },
+  // 设置入口的文件大小限制
+  performance: {
+    hints: 'warning',
+    maxEntrypointSize: 50000000,
+    maxAssetSize: 30000000,
+    assetFilter: function(assetFilename) {
+      return assetFilename.endsWith('.js');
+    }
   },
   output: {
     path: path.resolve(__dirname, 'bgwhite-js'),
@@ -41,21 +49,12 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    // 设置服务器访问的基本目录
-    // contentBase: path.resolve(__dirname, 'bgwhite-js'),
-    // 服务器ip地址，localhost
-    host: 'localhost',
-    port: 8090,
-    open: true, // 自动打开浏览器
-    hot: true // 热更新
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new Webpack.HotModuleReplacementPlugin(), // 热更新
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/index.html',
+      template: './src/index.html',
       hash: true,
       inject: 'body',
       chunks: ['index'],
@@ -66,7 +65,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'detail.html',
-      template: 'src/detail.html',
+      template: './src/detail.html',
       hash: true,
       inject: 'body',
       chunks: ['detail'],
@@ -77,7 +76,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'about.html',
-      template: 'src/about.html',
+      template: './src/about.html',
       hash: true,
       inject: 'body',
       chunks: ['about'],
@@ -92,8 +91,8 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.join(__dirname, './src/static'),
-          to: path.join(__dirname, '/bgwhite-js/static')
+          from: path.join(__dirname, '../src/static'),
+          to: path.join(__dirname, './bgwhite-js/static')
         }
       ]
     }),

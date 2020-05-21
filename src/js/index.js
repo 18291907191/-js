@@ -12,10 +12,11 @@ const HomePage = {
       this.oArticleDom.innerHTML += "<li class='bot'>WTF！没有文章？请将狗尾草痛打一顿，不要留情。您也可以与狗尾草进行QQ交谈，让他帮忙了解您所需要的文章~</li>";
       return;
     }
-    for (let i = 0; i < articleData.length; i++) {
+    for (var i = 0; i < articleData.length; i++) {
+      console.log('16', articleData[i].id);
       this.oArticleDom.innerHTML += `
         <li class="bot">${articleData[i].isNew ? "<i class='iconfont recent'>&#xe673;</i>" : ''}
-          <a href="detail.html?id=1"  class="img-hd">
+          <a href="detail.html?id=${articleData[i].id}"  class="img-hd">
             <img
               alt="狗尾草的前端博客"
               title="${articleData[i].title}"
@@ -24,8 +25,8 @@ const HomePage = {
           </a> 
           <div class="cont">
             <header>
-              <a href="detail.html?id=1" class="tag" >${articleData[i].tagName}</a>
-              <a href="detail.html?id=1" class="tit" >${articleData[i].title}</a>
+              <a href="detail.html?id=${articleData[i].id}" class="tag" >${articleData[i].tagName}</a>
+              <a href="detail.html?id=${articleData[i].id}" class="tit" >${articleData[i].title}</a>
             </header>
             <p class="meta">
               <span>${articleData[i].update_time}</span>
@@ -62,7 +63,7 @@ const HomePage = {
     this.cachData = id;
     this.getArticleParams.tagId = id;
     this.getArticleParams.page = 1;
-    this.getArticleData();
+    this.getArticleData(false, 'tag');
   },
   // 文章搜索
   handleSearch() {
@@ -85,42 +86,62 @@ const HomePage = {
     oLoadingFailDom.style = 'display:block';
   },
   // 获取文章列表
-  getArticleData(isBackTop = false) {
-    this.oArticleDom = document.querySelector('.article-wrap ul');
-    window.API.getArticleList(this.getArticleParams).then(res => {
-      this.oArticleDom.innerHTML = '';
-      const totalPage = Number(res.articleData.length);
-      const size = Number(res.size);
-      this.totalPage = totalPage % size === 0 ? (totalPage / size) : (Math.floor(totalPage / size) + 1);
-      this.renderArticleList(res.articleData);
-      if (isBackTop) {
-        scrollTo(0, 0); // 回到顶部
-      }
-    }, () => {
-      window.globalMessage.error('查询文章失败');
-      this.closeLoading();
-      this.showLoadingFail();
+  getArticleData(isBackTop = false, from) {
+    return new Promise((resolve, reject) => {
+      this.oArticleDom = document.querySelector('.article-wrap ul');
+      window.API.getArticleList(this.getArticleParams).then(res => {
+        this.oArticleDom.innerHTML = '';
+        const totalPage = from === 'tag' ? res.articleData.length : Number(res.total);
+        const size = Number(res.size);
+        this.totalPage = totalPage % size === 0 ? (totalPage / size) : (Math.floor(totalPage / size) + 1);
+        console.log('96', this.totalPage);
+        this.renderArticleList(res.articleData);
+        if (isBackTop) {
+          scrollTo(0, 0); // 回到顶部
+        }
+        resolve(res);
+      }, err => {
+        window.globalMessage.error('查询文章失败');
+        this.closeLoading();
+        this.showLoadingFail();
+        reject(err);
+      });
     });
   },
   // 获取推荐文章
   getGoodArticleData() {
-    this.oArticleGoodDom = document.querySelector('#article_good');
-    window.API.getArticleGood().then(res => {
-      this.renderArticleGood(res);
+    return new Promise((resolve, reject) => {
+      this.oArticleGoodDom = document.querySelector('#article_good');
+      window.API.getArticleGood().then(res => {
+        this.renderArticleGood(res);
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
     });
   },
   // 获取文章分类
   getArticleTagData() {
-    this.oArticleTagDom = document.querySelector('#article_tag');
-    window.API.getArticleTagList().then(res => {
-      this.renderArticleTag(res);
+    return new Promise((resolve, reject) => {
+      this.oArticleTagDom = document.querySelector('#article_tag');
+      window.API.getArticleTagList().then(res => {
+        this.renderArticleTag(res);
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
     });
   },
   // 初始化
-  init() {
-    this.getArticleData(true);
-    this.getArticleTagData();
-    this.getGoodArticleData();
+  async init() {
+    await Promise.race([
+      this.getArticleData(true),
+      this.getArticleTagData(),
+      this.getGoodArticleData()
+    ]);
+    this.appendScript('http://static.bgwhite.cn/react-website/handleLove.js'); // 背景点击特效
+    this.appendScript('http://static.bshare.cn/b/buttonLite.js#uuid=<您的uuid>&style=-1');
+    this.appendScript('http://static.bshare.cn/b/addons/bsharePop.js');
   },
   // 下一页
   handleNextPage() {
@@ -145,11 +166,21 @@ const HomePage = {
     }
     this.getArticleParams.page -= 1;
     this.getArticleData(true);
+  },
+  // 装饰插件
+  appendScript(url) {
+    const scriptEle = document.createElement('script');
+    scriptEle.type = 'text/javascript';
+    scriptEle.src = url;
+    scriptEle.charset = 'utf-8';
+    scriptEle.async = true;
+    document.body.appendChild(scriptEle);
   }
 };
 window.HomePage = HomePage;
 HomePage.init();
 
+// css样式
 require('../styles/reset.css');
 require('../styles/header.css');
 require('../styles/index.css');

@@ -9,6 +9,7 @@ window.onload = function() {
   }
   for (var i = 0; i < oMd.childNodes.length; i++) {
     if (oMd.childNodes[i].tagName === 'H2') {
+      this.console.log('12', oMd.childNodes[i]);
       var oA = document.createElement('a');
       oA.innerHTML = oMd.childNodes[i].innerHTML;
       oA.href = '#' + oMd.childNodes[i].id;
