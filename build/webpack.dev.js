@@ -3,6 +3,11 @@ const baseConfig = require('./webpack.base.js');
 
 module.exports = merge(baseConfig, {
   mode: 'production',
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': require('../config/dev.env')
+    })
+  ],
   devServer: {
     // 设置服务器访问的基本目录
     // contentBase: path.resolve(__dirname, 'bgwhite-js'),
