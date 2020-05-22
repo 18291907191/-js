@@ -3,8 +3,8 @@
  * @since 2020-05-15
  * @author 狗尾草
  */
-// const domain = 'http://127.0.0.1:3002';
-const domain = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3002' : 'http://www.bgwhite.cn/api';
+const domain = process.env.API_ROOT;
+
 window.API = {
   // 获取文章列表
   getArticleList(params = {}) {

@@ -31,11 +31,14 @@ const Detail = {
     const oArticleCreateTime = document.querySelector('.article-create-time');
     const oArticleReadNum = document.querySelector('.article-read-num');
     const oArticleGoodNum = document.querySelector('.article-good-num');
+    const oArticleDesc = document.querySelector('.desc');
+    oArticleDesc.innerHTML = article.describe;
     oArticleDom.innerHTML = window.marked(article.content);
     oArticleTitle.innerHTML = article.title;
     oArticleCreateTime.innerHTML = article.create_time;
     oArticleReadNum.innerHTML = article.reader_number;
     oArticleGoodNum.innerHTML = article.good_number;
+    this.createArticleNavDom();
   },
   // 初始化
   async init() {
@@ -69,6 +72,23 @@ const Detail = {
       xhtml: false
     });
   },
+  // 添加文章导航
+  createArticleNavDom() {
+    // 文章导航
+    var oArticleNav = document.createElement('div');
+    oArticleNav.className = 'article-nav';
+    oArticleNav.innerHTML = '<h1>文章导航</h1>';
+    var oMd = document.querySelector('.md');
+    for (var i = 0; i < oMd.childNodes.length; i++) {
+      if (oMd.childNodes[i].tagName === 'H2') {
+        var oA = document.createElement('a');
+        oA.innerHTML = oMd.childNodes[i].innerHTML;
+        oA.href = '#' + oMd.childNodes[i].id;
+        oArticleNav.appendChild(oA);
+      }
+    };
+    document.body.appendChild(oArticleNav);
+  },
   // 装饰插件
   appendScript(url) {
     const scriptEle = document.createElement('script');
@@ -83,6 +103,6 @@ Detail.init();
 
 // css样式
 require('../styles/reset.css');
-require('../styles/header.css');
-require('../styles/detail.css');
+require('../styles/header.less');
+require('../styles/detail.less');
 require('../styles/iconfont.css');

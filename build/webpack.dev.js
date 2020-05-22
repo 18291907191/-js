@@ -1,11 +1,15 @@
-const merge = require('webpack-merge');
+const merge = require('webpack-merge'); // 合并webpack配置
 const baseConfig = require('./webpack.base.js');
+const Webpack = require('webpack');
 
 module.exports = merge(baseConfig, {
   mode: 'production',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': require('../config/dev.env')
+    new Webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"',
+        API_ROOT: '"http://localhost:3002"'
+      }
     })
   ],
   devServer: {

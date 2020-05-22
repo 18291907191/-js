@@ -182,6 +182,6 @@ HomePage.init();
 
 // css样式
 require('../styles/reset.css');
-require('../styles/header.css');
-require('../styles/index.css');
+require('../styles/header.less');
+require('../styles/index.less');
 require('../styles/iconfont.css');

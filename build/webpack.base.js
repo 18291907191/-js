@@ -9,7 +9,7 @@ const Webpack = require('webpack');
 module.exports = {
   entry: {
     index: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/home.js', './src/js/index.js', './src/plugins/animation.js'],
-    detail: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/detail.js', './src/js/detail.js', './src/plugins/articleNav.js'],
+    detail: ['./src/plugins/message.js', './src/plugins/http.js', './src/api/detail.js', './src/js/detail.js', './src/plugins/backTop.js'],
     about: ['./src/js/about.js']
   },
   // 设置入口的文件大小限制
@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   output: {
-    path: path.resolve(__dirname, 'bgwhite-js'),
+    path: path.resolve(__dirname, '../bgwhite-js'),
     filename: 'js/[name].bundle.js'
   },
   module: {
@@ -37,6 +37,14 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader'
+        })
+      },
+      {
+        // npm i less-loader less -D
+        test: /.\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'less-loader']
         })
       },
       {
@@ -60,7 +68,20 @@ module.exports = {
       chunks: ['index'],
       minify: {
         removeComments: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
+        collapseWhitespace: true // 进行折叠去除空格
+      }
+    }),
+    new HtmlWebpackPlugin({
+      filename: '404.html',
+      template: './src/404.html',
+      hash: true,
+      inject: 'body',
+      chunks: [404],
+      minify: {
+        removeComments: true,
+        removeAttributeQuotes: true,
+        collapseWhitespace: true // 进行折叠去除空格
       }
     }),
     new HtmlWebpackPlugin({
@@ -71,7 +92,8 @@ module.exports = {
       chunks: ['detail'],
       minify: {
         removeComments: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
+        collapseWhitespace: true // 进行折叠去除空格
       }
     }),
     new HtmlWebpackPlugin({
@@ -82,7 +104,8 @@ module.exports = {
       chunks: ['about'],
       minify: {
         removeComments: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
+        collapseWhitespace: true, // 进行折叠去除空格
       }
     }),
     new ExtractTextPlugin({
@@ -92,7 +115,7 @@ module.exports = {
       patterns: [
         {
           from: path.join(__dirname, '../src/static'),
-          to: path.join(__dirname, './bgwhite-js/static')
+          to: path.join(__dirname, '../bgwhite-js/static')
         }
       ]
     }),

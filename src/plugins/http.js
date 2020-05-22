@@ -2,9 +2,8 @@
  * @description 请求工具类
  * @since 20200512
  */
-// 监听网络连接
 (function() {
-  // var oMsgDom;
+  // 监听网络连接
   window.addEventListener('offline', () => {
     window.globalMessage.error('网络断开连接');
   });
@@ -45,9 +44,9 @@ function tryHideFullScreenLoading() {
     endLoading();
   }
 }
-console.log('17http.js文件加载');
 // 请求拦截
 window.axios.interceptors.request.use(config => {
+  config.headers.fromOrigin = 'bgwhite-front';
   // showFullScreenLoading();
   // if(!Cookies.load('adminToken')) {
   //   return config;

@@ -13,7 +13,8 @@ window.onload = function() {
   appendScript('http://static.bshare.cn/b/buttonLite.js#uuid=<您的uuid>&style=-1');
   appendScript('http://static.bshare.cn/b/addons/bsharePop.js');
 };
+
 require('../styles/reset.css');
-require('../styles/header.css');
-require('../styles/about.css');
+require('../styles/header.less');
+require('../styles/about.less');
 require('../styles/iconfont.css');

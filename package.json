@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server --online --progress --config build/webpack.dev.js",
-    "start": "webpack-dev-server --online --progress --config ./build/webpack.test.js",
+    "test": "webpack-dev-server --online --progress --config ./build/webpack.test.js",
     "build": "webpack --config build/webpack.prod.js"
   },
   "author": "",
@@ -18,6 +18,8 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "less": "^3.11.1",
+    "less-loader": "^6.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss": "^7.0.30",
     "postcss-loader": "^3.0.0",
