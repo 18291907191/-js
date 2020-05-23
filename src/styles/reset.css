@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 }
 html, body {
   height: 100%;
+  font-family: "STSong","STKaiti","STHeiti";
 }
 body {
 	line-height: 1;
@@ -86,6 +87,9 @@ a {
 a.bshareDiv, #bsPanel, #bsMorePanel, #bshareF {
   display: flex;
   justify-content: center;
+}
+a.bshareDiv {
+  margin-bottom: 10px;
 }
 
 /* 版权 */
