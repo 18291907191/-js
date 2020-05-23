@@ -84,7 +84,8 @@
 .md blockquote p {
 	color: #7f8fa4 !important;
 	font-size: inherit;
-	line-height: 1.5
+  line-height: 1.5;
+  white-space:pre-wrap;
 }
 .md p {
 	color: #5c5d5e;
