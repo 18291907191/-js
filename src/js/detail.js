@@ -5,6 +5,7 @@ const Detail = {
     return new Promise((resolve, reject) => {
       const id = this.articleId;
       window.API.getArticleDetail({ id }).then(res => {
+        console.log('8', res);
         this.renderArticleDetail(res);
         resolve(res);
       }, err => {

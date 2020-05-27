@@ -16,7 +16,7 @@ const HomePage = {
       console.log('16', articleData[i].id);
       this.oArticleDom.innerHTML += `
         <li class="bot">${articleData[i].isNew ? "<i class='iconfont recent'>&#xe673;</i>" : ''}
-          <a href="detail.html?id=${articleData[i].id}"  class="img-hd">
+          <a href="http://www.bgwhite.cn/article/${articleData[i].id}"  class="img-hd">
             <img
               alt="狗尾草的前端博客"
               title="${articleData[i].title}"
@@ -25,8 +25,8 @@ const HomePage = {
           </a> 
           <div class="cont">
             <header>
-              <a href="detail.html?id=${articleData[i].id}" class="tag" >${articleData[i].tagName}</a>
-              <a href="detail.html?id=${articleData[i].id}" class="tit" >${articleData[i].title}</a>
+              <a href="http://www.bgwhite.cn/article/${articleData[i].id}" class="tag" >${articleData[i].tagName}</a>
+              <a href="http://www.bgwhite.cn/article/${articleData[i].id}" class="tit" >${articleData[i].title}</a>
             </header>
             <p class="meta">
               <span>${articleData[i].update_time}</span>
