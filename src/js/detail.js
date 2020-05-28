@@ -14,17 +14,7 @@ const Detail = {
       });
     });
   },
-  // 增加文章阅读量
-  setArticleReaderNum() {
-    return new Promise((resolve, reject) => {
-      const id = this.articleId;
-      window.API.setArticleReaderNum({ id }).then(res => {
-        resolve(res);
-      }, err => {
-        reject(err);
-      });
-    });
-  },
+
   // 详情渲染
   renderArticleDetail(article) {
     const oArticleTitle = document.querySelector('.article-title');
@@ -37,7 +27,6 @@ const Detail = {
     oArticleCreateTime.innerHTML = article.create_time;
     oArticleReadNum.innerHTML = article.reader_number;
     oArticleGoodNum.innerHTML = article.good_number;
-    this.createArticleNavDom();
   },
   // 初始化
   async init() {
@@ -70,23 +59,6 @@ const Detail = {
       smartypants: false,
       xhtml: false
     });
-  },
-  // 添加文章导航
-  createArticleNavDom() {
-    // 文章导航
-    var oArticleNav = document.createElement('div');
-    oArticleNav.className = 'article-nav';
-    oArticleNav.innerHTML = '<h1>文章导航</h1>';
-    var oMd = document.querySelector('.md');
-    for (var i = 0; i < oMd.childNodes.length; i++) {
-      if (oMd.childNodes[i].tagName === 'H2') {
-        var oA = document.createElement('a');
-        oA.innerHTML = oMd.childNodes[i].innerHTML;
-        oA.href = '#' + oMd.childNodes[i].id;
-        oArticleNav.appendChild(oA);
-      }
-    };
-    document.body.appendChild(oArticleNav);
   },
   // 装饰插件
   appendScript(url) {

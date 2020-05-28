@@ -6,6 +6,16 @@ const HomePage = {
   getArticleParams: { status: 1, page: 1, size: 5, tagId: '', searchParams: '' },
   totalPage: 0,
   cachData: null,
+  // 增加文章阅读量
+  setArticleReaderNum(id) {
+    return new Promise((resolve, reject) => {
+      window.API.setArticleReaderNum({ id }).then(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      });
+    });
+  },
   // 文章渲染
   renderArticleList(articleData) {
     if (!articleData.length) {
@@ -16,7 +26,7 @@ const HomePage = {
       console.log('16', articleData[i].id);
       this.oArticleDom.innerHTML += `
         <li class="bot">${articleData[i].isNew ? "<i class='iconfont recent'>&#xe673;</i>" : ''}
-          <a href="http://www.bgwhite.cn/article/${articleData[i].id}"  class="img-hd">
+          <a href="http://www.bgwhite.cn/article/${articleData[i].id}" data-id="${articleData[i].id}" id="jump_detail"  class="img-hd">
             <img
               alt="狗尾草的前端博客"
               title="${articleData[i].title}"
@@ -25,8 +35,8 @@ const HomePage = {
           </a> 
           <div class="cont">
             <header>
-              <a href="http://www.bgwhite.cn/article/${articleData[i].id}" class="tag" >${articleData[i].tagName}</a>
-              <a href="http://www.bgwhite.cn/article/${articleData[i].id}" class="tit" >${articleData[i].title}</a>
+              <a href="http://www.bgwhite.cn/article/${articleData[i].id}"  data-id="${articleData[i].id}" id="jump_detail2" class="tag" >${articleData[i].tagName}</a>
+              <a href="http://www.bgwhite.cn/article/${articleData[i].id}"  data-id="${articleData[i].id}" id="jump_detail3" class="tit" >${articleData[i].title}</a>
             </header>
             <p class="meta">
               <span>${articleData[i].update_time}</span>
@@ -43,7 +53,7 @@ const HomePage = {
   renderArticleGood(articleData) {
     for (var i = 0; i < articleData.length; i++) {
       const oLi = document.createElement('li');
-      oLi.innerHTML = `<a href='detail.html?id=${articleData[i].id}'>${articleData[i].title}（${articleData[i].reader_number}）</a>`;
+      oLi.innerHTML = `<a href="http://www.bgwhite.cn/article/${articleData[i].id}" data-id="${articleData[i].id}" id="jump_detail4">${articleData[i].title}（${articleData[i].reader_number}）</a>`;
       this.oArticleGoodDom.appendChild(oLi);
     }
   },
@@ -134,6 +144,7 @@ const HomePage = {
   },
   // 初始化
   async init() {
+    var _this = this;
     await Promise.race([
       this.getArticleData(true),
       this.getArticleTagData(),
@@ -142,6 +153,31 @@ const HomePage = {
     this.appendScript('http://static.bgwhite.cn/react-website/handleLove.js'); // 背景点击特效
     this.appendScript('http://static.bshare.cn/b/buttonLite.js#uuid=<您的uuid>&style=-1');
     this.appendScript('http://static.bshare.cn/b/addons/bsharePop.js');
+    setTimeout(() => {
+      const jumpBtn = document.querySelector('#jump_detail');
+      const jumpBtn2 = document.querySelector('#jump_detail2');
+      const jumpBtn3 = document.querySelector('#jump_detail3');
+      const jumpBtn4 = document.querySelector('#jump_detail3');
+      if (!jumpBtn) {
+        return;
+      }
+      const attrId = jumpBtn.getAttribute('data-id');
+      const attrId2 = jumpBtn2.getAttribute('data-id');
+      const attrId3 = jumpBtn3.getAttribute('data-id');
+      const attrId4 = jumpBtn4.getAttribute('data-id');
+      jumpBtn.onclick = function() {
+        _this.setArticleReaderNum(attrId);
+      };
+      jumpBtn2.onclick = function() {
+        _this.setArticleReaderNum(attrId2);
+      };
+      jumpBtn3.onclick = function() {
+        _this.setArticleReaderNum(attrId3);
+      };
+      jumpBtn4.onclick = function() {
+        _this.setArticleReaderNum(attrId4);
+      };
+    }, 500);
   },
   // 下一页
   handleNextPage() {

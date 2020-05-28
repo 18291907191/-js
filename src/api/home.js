@@ -22,6 +22,10 @@ window.API = {
   // setArticleGoodNum(params = {}) {
   //   return postRequest(`${domain}/article/api/v1/article_likes`, params);
   // },
+  // 文章阅读量新增
+  setArticleReaderNum(params = {}) {
+    return postRequest(`${domain}/article/api/v1/article_reader_number`, params);
+  },
   // 获取推荐好文
   getArticleGood(params = {}) {
     return getRequest(`${domain}/article/api/v1/article_good`, params);
